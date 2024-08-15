@@ -35,12 +35,19 @@ suite("Unit Tests", function () {
 
   suite("getUnit Function", function () {
     // #1
-    test("convertHandler should correctly read each valid input unit", function () {
+    test("convertHandler should correctly read each valid input unit and handle case insensitivity", function () {
       assert.equal(convertHandler.getUnit("L"), "L");
+      assert.equal(convertHandler.getUnit("l"), "L");
       assert.equal(convertHandler.getUnit("gal"), "gal");
+      assert.equal(convertHandler.getUnit("GAL"), "gal");
       assert.equal(convertHandler.getUnit("mi"), "mi");
+      assert.equal(convertHandler.getUnit("MI"), "mi");
       assert.equal(convertHandler.getUnit("km"), "km");
+      assert.equal(convertHandler.getUnit("KM"), "km");
       assert.equal(convertHandler.getUnit("lbs"), "lbs");
+      assert.equal(convertHandler.getUnit("LBS"), "lbs");
+      assert.equal(convertHandler.getUnit("kg"), "kg");
+      assert.equal(convertHandler.getUnit("KG"), "kg");
     });
     // #2
     test("convertHandler should correctly return an error for an invalid input unit", function () {

@@ -1,3 +1,5 @@
+'use strict';
+
 function ConvertHandler() {
   this.getNum = function (input) {
     let result;
@@ -36,68 +38,82 @@ function ConvertHandler() {
   this.getUnit = function (input) {
     let result;
 
-    // Match the unit part
+    // Match the unit part and normalize to lowercase
     let match = input.match(/[a-zA-Z]+/);
     if (match) {
-      result = match[0];
+      result = match[0].toLowerCase();
 
-      if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(result)) {
+      if (!["gal", "l", "mi", "km", "lbs", "kg"].includes(result)) {
         return "invalid unit";
       }
 
       // If it's a valid unit, return it
-      return result;
+      return result === 'l' ? 'L' : result;
     }
 
     return result;
   };
 
+  // this.getReturnUnit = function (initUnit) {
+  //   let result;
+
+  //   initUnit = initUnit.toLowerCase();
+
+  //   // Check if it's a valid unit
+  //   if (!["gal", "l", "mi", "km", "lbs", "kg"].includes(initUnit)) {
+  //     return "invalid unit";
+  //   } else if (initUnit === "gal") {
+  //     result = "L";
+  //   } else if (initUnit === "L") {
+  //     result = "gal";
+  //   } else if (initUnit === "mi") {
+  //     result = "km";
+  //   } else if (initUnit === "km") {
+  //     result = "mi";
+  //   } else if (initUnit === "lbs") {
+  //     result = "kg";
+  //   } else if (initUnit === "kg") {
+  //     result = "lbs";
+  //   }
+
+  //   return result;
+  // };
+  
   this.getReturnUnit = function (initUnit) {
-    let result;
-
-    // Check if it's a valid unit
-    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit)) {
-      return "invalid unit";
-    } else if (initUnit === "gal") {
-      result = "L";
-    } else if (initUnit === "L") {
-      result = "gal";
-    } else if (initUnit === "mi") {
-      result = "km";
-    } else if (initUnit === "km") {
-      result = "mi";
-    } else if (initUnit === "lbs") {
-      result = "kg";
-    } else if (initUnit === "kg") {
-      result = "lbs";
-    }
-
-    // If it's a valid unit, return it
-    return result;
+    const unitMap = {
+      'gal': 'L',
+      'l': 'gal',
+      'mi': 'km',
+      'km': 'mi',
+      'lbs': 'kg',
+      'kg': 'lbs'
+    };
+  
+    initUnit = initUnit.toLowerCase();
+    
+    // Return mapped unit or 'invalid unit' if not found
+    return unitMap[initUnit] || 'invalid unit';
   };
-
+  
   this.spellOutUnit = function (unit) {
-    let result;
+    unit = unit.toLowerCase();
 
     // Check if it's a valid unit
-    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(unit)) {
+    if (!["gal", "l", "mi", "km", "lbs", "kg"].includes(unit)) {
       return "invalid unit";
     } else if (unit === "gal") {
-      result = "gallons";
-    } else if (unit === "L") {
-      result = "liters";
+      return "gallons";
+    } else if (unit === "l") {
+      return "liters";
     } else if (unit === "mi") {
-      result = "miles";
+      return "miles";
     } else if (unit === "km") {
-      result = "kilometers";
+      return "kilometers";
     } else if (unit === "lbs") {
-      result = "pounds";
+      return "pounds";
     } else if (unit === "kg") {
-      result = "kilograms";
+      return "kilograms";
     }
-
-    // If it's a valid unit, return it
-    return result;
   };
 
   this.convert = function (initNum, initUnit) {
@@ -106,12 +122,14 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     let result;
 
+    initUnit = initUnit.toLowerCase();
+
     // Check if it's a valid unit
-    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit)) {
+    if (!["gal", "l", "mi", "km", "lbs", "kg"].includes(initUnit)) {
       return "invalid unit";
     } else if (initUnit === "gal") {
       result = initNum * galToL;
-    } else if (initUnit === "L") {
+    } else if (initUnit === "l") {
       result = initNum / galToL;
     } else if (initUnit === "mi") {
       result = initNum * miToKm;
@@ -129,12 +147,15 @@ function ConvertHandler() {
 
   this.getString = function (initNum, initUnit, returnUnit) {
     let result;
-  
+
     // Check if both initUnit and returnUnit are valid
-    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit) || !["gal", "L", "mi", "km", "lbs", "kg"].includes(returnUnit)) {
+    initUnit = initUnit.toLowerCase();
+    returnUnit = returnUnit.toLowerCase();
+
+    if (!["gal", "l", "mi", "km", "lbs", "kg"].includes(initUnit) || !["gal", "l", "mi", "km", "lbs", "kg"].includes(returnUnit)) {
       return "invalid unit";
     }
-  
+
     // Perform conversion
     const returnNum = this.convert(initNum, initUnit);
   
