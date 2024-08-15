@@ -24,11 +24,11 @@ suite("Functional Tests", function () {
           assert.property(res.body, "string");
           assert.equal(res.body.initNum, 10);
           assert.equal(res.body.initUnit, "L");
-          assert.equal(res.body.returnNum, 2.6417217685798895);
+          assert.equal(res.body.returnNum, 2.64172);
           assert.equal(res.body.returnUnit, "gal");
           assert.equal(
             res.body.string,
-            "10 liters converts to 2.6417217685798895 gallons"
+            "10 liters converts to 2.64172 gallons"
           );
           done();
         });
@@ -91,11 +91,11 @@ suite("Functional Tests", function () {
           assert.property(res.body, "string");
           assert.equal(res.body.initNum, 1);
           assert.equal(res.body.initUnit, "kg");
-          assert.equal(res.body.returnNum, 2.2046244201837775);
+          assert.equal(res.body.returnNum, 2.20462);
           assert.equal(res.body.returnUnit, "lbs");
           assert.equal(
             res.body.string,
-            "1 kilograms converts to 2.2046244201837775 pounds"
+            "1 kilograms converts to 2.20462 pounds"
           );
           done();
         });

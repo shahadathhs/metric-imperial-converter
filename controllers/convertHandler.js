@@ -123,8 +123,8 @@ function ConvertHandler() {
       result = initNum / lbsToKg;
     }
 
-    // If it's a valid unit, return it
-    return result;
+    // Round the result to 5 decimal places
+    return parseFloat(result.toFixed(5));
   };
 
   this.getString = function (initNum, initUnit, returnUnit) {
@@ -136,14 +136,13 @@ function ConvertHandler() {
     }
   
     // Perform conversion
-    const returnNum = this.convert(initNum, initUnit, returnUnit);
+    const returnNum = this.convert(initNum, initUnit);
   
     // Construct the result string
     result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
     
     return result;
   };
-  
 }
 
 module.exports = ConvertHandler;
