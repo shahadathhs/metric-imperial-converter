@@ -34,7 +34,7 @@ suite("Unit Tests", function () {
   });
 
   suite("getUnit Function", function () {
-    // #1
+    // #7
     test("convertHandler should correctly read each valid input unit and handle case insensitivity", function () {
       assert.equal(convertHandler.getUnit("L"), "L");
       assert.equal(convertHandler.getUnit("l"), "L");
@@ -49,14 +49,14 @@ suite("Unit Tests", function () {
       assert.equal(convertHandler.getUnit("kg"), "kg");
       assert.equal(convertHandler.getUnit("KG"), "kg");
     });
-    // #2
+    // #8
     test("convertHandler should correctly return an error for an invalid input unit", function () {
       assert.equal(convertHandler.getUnit("x"), "invalid unit");
     });
   });
 
   suite("getReturnUnit Function", function () {
-    // #1
+    // #9
     test("convertHandler should correctly return the unit for each valid input unit", function () {
       assert.equal(convertHandler.getReturnUnit("L"), "gal");
       assert.equal(convertHandler.getReturnUnit("gal"), "L");
@@ -68,7 +68,7 @@ suite("Unit Tests", function () {
   });
 
   suite("spellOutUnit Function", function () {
-    // #1
+    // #10
     test("convertHandler should correctly spell out and return the corresponding unit for each valid input unit", function () {
       assert.equal(convertHandler.spellOutUnit("L"), "liters");
       assert.equal(convertHandler.spellOutUnit("gal"), "gallons");
@@ -80,33 +80,34 @@ suite("Unit Tests", function () {
   });
 
   suite("convert Function", function () {
-    // #1
+    // #11
     test("convertHandler should correctly convert gal to L", function () {
       assert.equal(convertHandler.convert(5, "gal"), 18.92705);
     });
-    // #2
+    // #12
     test("convertHandler should correctly convert L to gal", function () {
       assert.equal(convertHandler.convert(5, "L"), 1.32086);
     });
-    // #3
+    // #13
     test("convertHandler should correctly convert mi to km", function () {
       assert.equal(convertHandler.convert(5, "mi"), 8.0467);
     });
-    // #4
+    // #14
     test("convertHandler should correctly convert km to mi", function () {
       assert.equal(convertHandler.convert(5, "km"), 3.10686);
     });
-    // #5
+    // #15
     test("convertHandler should correctly convert lbs to kg", function () {
       assert.equal(convertHandler.convert(5, "lbs"), 2.26796);
     });
-    // #6
+    // #16
     test("convertHandler should correctly convert kg to lbs", function () {
       assert.equal(convertHandler.convert(5, "kg"), 11.02312);
     });
   });
 
   suite("getString Function", function () {
+    // #17
     test("convertHandler should correctly provide the correct string output", function () {
       assert.equal(convertHandler.getString(5, "gal", "L"), "5 gallons converts to 18.92705 liters");
       assert.equal(convertHandler.getString(5, "L", "gal"), "5 liters converts to 1.32086 gallons");
