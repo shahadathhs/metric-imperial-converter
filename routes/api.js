@@ -26,6 +26,22 @@ router.get('/convert', (req, res) => {
     return res.json({ error: 'invalid unit' });
   }
 
+  // Handle case where unit is valid but number is not provided
+  if (num === "invalid number" && unit !== "invalid unit") {
+    // Assume default number is 1 for valid unit
+    const returnUnit = convertHandler.getReturnUnit(unit);
+    const convertedNum = convertHandler.convert(1, unit);
+    const string = convertHandler.getString(1, unit, returnUnit);
+
+    return res.json({
+      initNum: 1,
+      initUnit: unit,
+      returnNum: convertedNum,
+      returnUnit: returnUnit,
+      string: string
+    });
+  }
+
   // Continue with valid cases
   const returnUnit = convertHandler.getReturnUnit(unit);
   const convertedNum = convertHandler.convert(num, unit);

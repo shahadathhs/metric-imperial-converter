@@ -84,8 +84,19 @@ suite("Functional Tests", function () {
         .query({ input: "kg" })
         .end(function (err, res) {
           assert.equal(res.status, 200);
-          assert.property(res.body, "error");
-          assert.equal(res.body.error, "1 kg");
+          assert.property(res.body, "initNum");
+          assert.property(res.body, "initUnit");
+          assert.property(res.body, "returnNum");
+          assert.property(res.body, "returnUnit");
+          assert.property(res.body, "string");
+          assert.equal(res.body.initNum, 1);
+          assert.equal(res.body.initUnit, "kg");
+          assert.equal(res.body.returnNum, 2.2046244201837775);
+          assert.equal(res.body.returnUnit, "lbs");
+          assert.equal(
+            res.body.string,
+            "1 kilograms converts to 2.2046244201837775 pounds"
+          );
           done();
         });
     });
