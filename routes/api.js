@@ -11,10 +11,22 @@ router.get('/convert', (req, res) => {
   const num = convertHandler.getNum(input);
   const unit = convertHandler.getUnit(input);
 
-  if (num === "invalid number" || unit === "invalid unit") {
-    return res.json({ error: 'Invalid Input' });
+  // Handle invalid number and unit cases
+  if (num === "invalid number" && unit === "invalid unit") {
+    return res.json({ error: 'invalid number and unit' });
   }
 
+  // Handle invalid number case
+  if (num === "invalid number") {
+    return res.json({ error: 'invalid number' });
+  }
+
+  // Handle invalid unit case
+  if (unit === "invalid unit") {
+    return res.json({ error: 'invalid unit' });
+  }
+
+  // Continue with valid cases
   const returnUnit = convertHandler.getReturnUnit(unit);
   const convertedNum = convertHandler.convert(num, unit);
   const string = convertHandler.getString(num, unit, returnUnit);
