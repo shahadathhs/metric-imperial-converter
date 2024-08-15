@@ -55,12 +55,48 @@ function ConvertHandler() {
   this.getReturnUnit = function (initUnit) {
     let result;
 
+    // Check if it's a valid unit
+    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit)) {
+      return "invalid unit";
+    } else if (initUnit === "gal") {
+      result = "L";
+    } else if (initUnit === "L") {
+      result = "gal";
+    } else if (initUnit === "mi") {
+      result = "km";
+    } else if (initUnit === "km") {
+      result = "mi";
+    } else if (initUnit === "lbs") {
+      result = "kg";
+    } else if (initUnit === "kg") {
+      result = "lbs";
+    }
+
+    // If it's a valid unit, return it
     return result;
   };
 
   this.spellOutUnit = function (unit) {
     let result;
 
+    // Check if it's a valid unit
+    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(unit)) {
+      return "invalid unit";
+    } else if (unit === "gal") {
+      result = "gallons";
+    } else if (unit === "L") {
+      result = "liters";
+    } else if (unit === "mi") {
+      result = "miles";
+    } else if (unit === "km") {
+      result = "kilometers";
+    } else if (unit === "lbs") {
+      result = "pounds";
+    } else if (unit === "kg") {
+      result = "kilograms";
+    }
+
+    // If it's a valid unit, return it
     return result;
   };
 
@@ -70,14 +106,44 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     let result;
 
+    // Check if it's a valid unit
+    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit)) {
+      return "invalid unit";
+    } else if (initUnit === "gal") {
+      result = initNum * galToL;
+    } else if (initUnit === "L") {
+      result = initNum / galToL;
+    } else if (initUnit === "mi") {
+      result = initNum * miToKm;
+    } else if (initUnit === "km") {
+      result = initNum / miToKm;
+    } else if (initUnit === "lbs") {
+      result = initNum * lbsToKg;
+    } else if (initUnit === "kg") {
+      result = initNum / lbsToKg;
+    }
+
+    // If it's a valid unit, return it
     return result;
   };
 
-  this.getString = function (initNum, initUnit, returnNum, returnUnit) {
+  this.getString = function (initNum, initUnit, returnUnit) {
     let result;
-
+  
+    // Check if both initUnit and returnUnit are valid
+    if (!["gal", "L", "mi", "km", "lbs", "kg"].includes(initUnit) || !["gal", "L", "mi", "km", "lbs", "kg"].includes(returnUnit)) {
+      return "invalid unit";
+    }
+  
+    // Perform conversion
+    const returnNum = this.convert(initNum, initUnit, returnUnit);
+  
+    // Construct the result string
+    result = `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+    
     return result;
   };
+  
 }
 
 module.exports = ConvertHandler;
